@@ -1,0 +1,16 @@
+{
+  "direct": true,
+  "type": "postgres",
+  "connection": {
+    "host": "aws-0-sa-east-1.pooler.supabase.com",
+    "port": 5432,
+    "user": "postgres.yevresbdagbaxudaxavo",
+    "password": "@Bakihamma025@",
+    "database": "postgres"
+  },
+  "schema": {
+    "tables": {},
+    "views": {}
+  },
+  "primaryKeyType": "uuid"
+}
