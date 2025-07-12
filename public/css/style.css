@@ -172,10 +172,66 @@ button {
     box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
+/* ===== RESPONSIVE IMPROVEMENTS ===== */
+
+/* Extra large screens and above (1400px+) */
+@media (min-width: 1400px) {
     .vertical-steps {
-        gap: 32px;
+        gap: 50px;
+        padding-left: 25px;
+    }
+    
+    .vertical-step-number {
+        width: 60px;
+        height: 60px;
+        font-size: 20px;
+    }
+    
+    .vertical-step-title {
+        font-size: 20px;
+    }
+    
+    .vertical-step-description {
+        font-size: 15px;
+    }
+    
+    .vertical-step:not(:last-child)::after {
+        left: 29px;
+        height: 50px;
+    }
+}
+
+/* Large screens (992px to 1199px) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .vertical-steps {
+        gap: 35px;
+        padding-left: 18px;
+    }
+    
+    .vertical-step-number {
+        width: 45px;
+        height: 45px;
+        font-size: 17px;
+    }
+    
+    .vertical-step-title {
+        font-size: 17px;
+    }
+    
+    .vertical-step-description {
+        font-size: 13px;
+    }
+    
+    .vertical-step:not(:last-child)::after {
+        left: 21.5px;
+        height: 35px;
+    }
+}
+
+/* Medium screens - tablet landscape (768px to 991px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .vertical-steps {
+        gap: 30px;
         padding-left: 15px;
     }
     
@@ -190,12 +246,12 @@ button {
     }
     
     .vertical-step-description {
-        font-size: 13px;
+        font-size: 12px;
     }
     
     .vertical-step:not(:last-child)::after {
         left: 19px;
-        height: 32px;
+        height: 30px;
     }
     
     .step-content {
@@ -203,24 +259,141 @@ button {
     }
 }
 
-@media (max-width: 576px) {
-    .vertical-steps {
-        gap: 28px;
-        padding-left: 10px;
+/* Small screens - mobile landscape and tablets (576px to 767px) */
+@media (max-width: 767.98px) {
+    /* Main container adjustments */
+    .container-fluid.vh-100 {
+        min-height: 100vh;
+        height: auto;
     }
     
-    .vertical-step {
-        gap: 12px;
+    .row.h-100 {
+        min-height: 100vh;
+        height: auto;
     }
     
-    .vertical-step-number {
-        width: 35px;
-        height: 35px;
+    /* Mobile progress bar styling */
+    .progress {
+        border-radius: 10px;
+    }
+    
+    .progress-bar {
+        transition: width 0.3s ease;
+    }
+    
+    /* Content adjustments */
+    .step-content {
+        min-height: 300px;
+    }
+    
+    /* Form spacing adjustments for mobile */
+    .form-group {
+        margin-bottom: 1.5rem !important;
+    }
+    
+    /* Button adjustments */
+    .btn {
+        min-height: 52px;
+        font-size: 16px;
+    }
+    
+    /* Navigation buttons stack on mobile with proper spacing */
+    .d-flex.flex-column.flex-sm-row {
+        gap: 0.75rem;
+    }
+}
+
+/* Extra small screens - mobile portrait (up to 575px) */
+@media (max-width: 575.98px) {
+    /* Reduce container padding on very small screens */
+    .container-fluid.px-3 {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    
+    /* Form adjustments */
+    .form-control,
+    .form-select {
+        min-height: 50px;
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+    
+    /* Alert adjustments */
+    .alert {
+        padding: 0.75rem;
         font-size: 14px;
     }
     
+    /* Form text adjustments */
+    .form-text {
+        font-size: 12px;
+    }
+    
+    /* Navigation buttons full width on very small screens */
+    .btn {
+        min-height: 54px;
+        width: 100%;
+    }
+    
+    /* Step content minimum height reduction for very small screens */
+    .step-content {
+        min-height: 250px;
+    }
+    
+    /* Title adjustments */
+    h4 {
+        font-size: 1.4rem;
+        margin-bottom: 1.5rem !important;
+    }
+}
+
+/* High-density screens adjustments */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     .vertical-step:not(:last-child)::after {
-        left: 16.5px;
-        height: 28px;
+        width: 1px;
+    }
+}
+
+/* Landscape orientation specific adjustments */
+@media (max-height: 600px) and (orientation: landscape) {
+    .step-content {
+        min-height: 200px;
+    }
+    
+    .container-fluid.vh-100 {
+        height: auto;
+        min-height: 100vh;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+}
+
+/* Print styles */
+@media print {
+    .loading-overlay,
+    .btn,
+    .d-flex.flex-column.flex-sm-row {
+        display: none !important;
+    }
+    
+    .step-content[dmx-show="false"] {
+        display: block !important;
+        opacity: 1 !important;
+    }
+}
+
+/* Focus and accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    .vertical-step-number,
+    .step-content,
+    .progress-bar {
+        transition: none;
+    }
+}
+
+/* Dark mode support for mobile progress indicator */
+@media (prefers-color-scheme: dark) {
+    .bg-primary {
+        background-color: #0b5ed7 !important;
     }
 }

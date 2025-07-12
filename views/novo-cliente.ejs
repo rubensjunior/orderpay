@@ -2,7 +2,8 @@
 <meta name="ac:route" content="/novo-cliente">
 <div class="container-fluid vh-100">
     <div class="row h-100">
-        <div class="col-4 bg-primary d-flex justify-content-center align-items-center">
+        <!-- Progress Steps Sidebar -->
+        <div class="col-xl-4 col-lg-5 col-md-6 d-none d-md-flex bg-primary justify-content-center align-items-center">
             <div class="text-center text-white">
 
                 <!-- Step control variables -->
@@ -35,241 +36,258 @@
 
             </div>
         </div>
-        <div class="col align-self-center">
-            <div class="row justify-content-center">
-                <div class="col-8">
-                    <!-- Multi-step form -->
-                    <form is="dmx-serverconnect-form" id="registration_form" method="post" action="/api/register" class="needs-validation">
-                        <!-- Validation variables -->
-                        <dmx-value id="step1_valid" dmx-bind:value="razao_social.value != '' && nome_fantasia.value != '' && cnpj.value != ''"></dmx-value>
-                        <dmx-value id="step2_valid" dmx-bind:value="cep.value != '' && logradouro.value != '' && numero.value != '' && bairro.value != '' && cidade.value != '' && telefone_comercial.value != ''"></dmx-value>
-                        <dmx-value id="step3_valid" dmx-bind:value="nome.value != '' && email.value != '' && telefone.value != '' && senha.value != '' && confirmar_senha.value != '' && cargo.value != '' && departamento.value != '' && termos.checked"></dmx-value>
 
-                        <!-- Step 1: Dados da Empresa -->
-                        <div class="step-content" dmx-show="form_step.value == 1">
-                            <h4 class="mb-4">Dados da Empresa</h4>
-
-                            <div class="form-group mb-3">
-                                <label for="razao_social" class="form-label">Razão Social</label>
-                                <input type="text" class="form-control" id="razao_social" name="razao_social" required data-msg-required="Por favor, informe a razão social">
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label for="nome_fantasia" class="form-label">Nome Fantasia</label>
-                                <input type="text" class="form-control" id="nome_fantasia" name="nome_fantasia" required data-msg-required="Por favor, informe o nome fantasia">
-                            </div>
-
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="cnpj" class="form-label">CNPJ</label>
-                                        <input type="text" class="form-control" id="cnpj" name="cnpj" required data-msg-required="Por favor, informe o CNPJ" data-rule-pattern="^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$" data-msg-pattern="CNPJ inválido">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="inscricao_estadual" class="form-label">Inscrição Estadual</label>
-                                        <input type="text" class="form-control" id="inscricao_estadual" name="inscricao_estadual">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="alert alert-info">
-                                        <i class="fas fa-info-circle me-2"></i>A Inscrição Estadual é opcional para algumas empresas.
-                                    </div>
-                                </div>
+        <!-- Main Content Area -->
+        <div class="col-xl-8 col-lg-7 col-md-6 col-12 align-self-center">
+            <div class="container-fluid px-3 px-md-4 px-lg-5">
+                <!-- Mobile Progress Indicator -->
+                <div class="d-md-none mb-4">
+                    <div class="bg-primary text-white p-3 rounded">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h6 class="mb-0">Etapa <span dmx-text="form_step.value"></span> de 3</h6>
+                            <div class="progress w-50" style="height: 8px;">
+                                <div class="progress-bar bg-white" dmx-bind:style="'width: ' + (form_step.value * 33.33) + '%'"></div>
                             </div>
                         </div>
+                        <div class="small mt-1" dmx-text="form_step.value == 1 ? 'Dados da Empresa' : form_step.value == 2 ? 'Endereço' : 'Dados do Usuário'"></div>
+                    </div>
+                </div>
 
-                        <!-- Step 2: Endereço -->
-                        <div class="step-content" dmx-show="form_step.value == 2">
-                            <h4 class="mb-4">Endereço</h4>
+                <div class="row justify-content-center">
+                    <div class="col-12 col-lg-10 col-xl-9">
+                        <!-- Multi-step form -->
+                        <form is="dmx-serverconnect-form" id="registration_form" method="post" action="/api/register" class="needs-validation">
+                            <!-- Validation variables -->
+                            <dmx-value id="step1_valid" dmx-bind:value="razao_social.value != '' && nome_fantasia.value != '' && cnpj.value != ''"></dmx-value>
+                            <dmx-value id="step2_valid" dmx-bind:value="cep.value != '' && logradouro.value != '' && numero.value != '' && bairro.value != '' && cidade.value != '' && telefone_comercial.value != ''"></dmx-value>
+                            <dmx-value id="step3_valid" dmx-bind:value="nome.value != '' && email.value != '' && telefone.value != '' && senha.value != '' && confirmar_senha.value != '' && cargo.value != '' && departamento.value != '' && termos.checked"></dmx-value>
 
-                            <div class="row g-3">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="cep" class="form-label">CEP</label>
-                                        <input type="text" class="form-control" id="cep" name="cep" required data-msg-required="Por favor, informe o CEP" data-rule-pattern="^\d{5}-\d{3}$" data-msg-pattern="CEP inválido">
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="form-group">
-                                        <label for="logradouro" class="form-label">Logradouro</label>
-                                        <input type="text" class="form-control" id="logradouro" name="logradouro" required data-msg-required="Por favor, informe o logradouro">
-                                    </div>
-                                </div>
-                            </div>
+                            <!-- Step 1: Dados da Empresa -->
+                            <div class="step-content" dmx-show="form_step.value == 1">
+                                <h4 class="mb-4">Dados da Empresa</h4>
 
-                            <div class="row g-3 mt-2">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="numero" class="form-label">Número</label>
-                                        <input type="text" class="form-control" id="numero" name="numero" required data-msg-required="Por favor, informe o número">
-                                    </div>
+                                <div class="form-group mb-3">
+                                    <label for="razao_social" class="form-label">Razão Social</label>
+                                    <input type="text" class="form-control" id="razao_social" name="razao_social" required data-msg-required="Por favor, informe a razão social">
                                 </div>
-                                <div class="col-md-8">
-                                    <div class="form-group">
-                                        <label for="complemento" class="form-label">Complemento</label>
-                                        <input type="text" class="form-control" id="complemento" name="complemento">
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="row g-3 mt-2">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="bairro" class="form-label">Bairro</label>
-                                        <input type="text" class="form-control" id="bairro" name="bairro" required data-msg-required="Por favor, informe o bairro">
-                                    </div>
+                                <div class="form-group mb-3">
+                                    <label for="nome_fantasia" class="form-label">Nome Fantasia</label>
+                                    <input type="text" class="form-control" id="nome_fantasia" name="nome_fantasia" required data-msg-required="Por favor, informe o nome fantasia">
                                 </div>
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <label for="cidade" class="form-label">Cidade</label>
-                                        <input type="text" class="form-control" id="cidade" name="cidade" required data-msg-required="Por favor, informe a cidade">
+
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="cnpj" class="form-label">CNPJ</label>
+                                            <input type="text" class="form-control" id="cnpj" name="cnpj" required data-msg-required="Por favor, informe o CNPJ" data-rule-pattern="^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$" data-msg-pattern="CNPJ inválido">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="estado" class="form-label">Estado</label>
-                                        <select class="form-select" id="estado" name="estado" required data-msg-required="Por favor, selecione o estado">
-                                            <option value="">Selecione...</option>
-                                            <option value="AC">AC</option>
-                                            <option value="AL">AL</option>
-                                            <option value="AP">AP</option>
-                                            <option value="AM">AM</option>
-                                            <option value="BA">BA</option>
-                                            <option value="CE">CE</option>
-                                            <option value="DF">DF</option>
-                                            <option value="ES">ES</option>
-                                            <option value="GO">GO</option>
-                                            <option value="MA">MA</option>
-                                            <option value="MT">MT</option>
-                                            <option value="MS">MS</option>
-                                            <option value="MG">MG</option>
-                                            <option value="PA">PA</option>
-                                            <option value="PB">PB</option>
-                                            <option value="PR">PR</option>
-                                            <option value="PE">PE</option>
-                                            <option value="PI">PI</option>
-                                            <option value="RJ">RJ</option>
-                                            <option value="RN">RN</option>
-                                            <option value="RS">RS</option>
-                                            <option value="RO">RO</option>
-                                            <option value="RR">RR</option>
-                                            <option value="SC">SC</option>
-                                            <option value="SP">SP</option>
-                                            <option value="SE">SE</option>
-                                            <option value="TO">TO</option>
-                                        </select>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="inscricao_estadual" class="form-label">Inscrição Estadual</label>
+                                            <input type="text" class="form-control" id="inscricao_estadual" name="inscricao_estadual">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="alert alert-info">
+                                            <i class="fas fa-info-circle me-2"></i>A Inscrição Estadual é opcional para algumas empresas.
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row g-3 mt-2">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="telefone_comercial" class="form-label">Telefone Comercial</label>
-                                        <input type="tel" class="form-control" id="telefone_comercial" name="telefone_comercial" required data-msg-required="Por favor, informe o telefone comercial">
+                            <!-- Step 2: Endereço -->
+                            <div class="step-content" dmx-show="form_step.value == 2">
+                                <h4 class="mb-4">Endereço</h4>
+
+                                <div class="row g-3">
+                                    <div class="col-lg-4 col-md-5">
+                                        <div class="form-group">
+                                            <label for="cep" class="form-label">CEP</label>
+                                            <input type="text" class="form-control" id="cep" name="cep" required data-msg-required="Por favor, informe o CEP" data-rule-pattern="^\d{5}-\d{3}$" data-msg-pattern="CEP inválido">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8 col-md-7">
+                                        <div class="form-group">
+                                            <label for="logradouro" class="form-label">Logradouro</label>
+                                            <input type="text" class="form-control" id="logradouro" name="logradouro" required data-msg-required="Por favor, informe o logradouro">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="telefone_alternativo" class="form-label">Telefone Alternativo</label>
-                                        <input type="tel" class="form-control" id="telefone_alternativo" name="telefone_alternativo">
-                                        <div class="form-text">Opcional - para contato em caso de emergência</div>
+
+                                <div class="row g-3 mt-2">
+                                    <div class="col-lg-3 col-md-4">
+                                        <div class="form-group">
+                                            <label for="numero" class="form-label">Número</label>
+                                            <input type="text" class="form-control" id="numero" name="numero" required data-msg-required="Por favor, informe o número">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-9 col-md-8">
+                                        <div class="form-group">
+                                            <label for="complemento" class="form-label">Complemento</label>
+                                            <input type="text" class="form-control" id="complemento" name="complemento">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mt-2">
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="form-group">
+                                            <label for="bairro" class="form-label">Bairro</label>
+                                            <input type="text" class="form-control" id="bairro" name="bairro" required data-msg-required="Por favor, informe o bairro">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5 col-md-6">
+                                        <div class="form-group">
+                                            <label for="cidade" class="form-label">Cidade</label>
+                                            <input type="text" class="form-control" id="cidade" name="cidade" required data-msg-required="Por favor, informe a cidade">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-12">
+                                        <div class="form-group">
+                                            <label for="estado" class="form-label">Estado</label>
+                                            <select class="form-select" id="estado" name="estado" required data-msg-required="Por favor, selecione o estado">
+                                                <option value="">Selecione...</option>
+                                                <option value="AC">AC</option>
+                                                <option value="AL">AL</option>
+                                                <option value="AP">AP</option>
+                                                <option value="AM">AM</option>
+                                                <option value="BA">BA</option>
+                                                <option value="CE">CE</option>
+                                                <option value="DF">DF</option>
+                                                <option value="ES">ES</option>
+                                                <option value="GO">GO</option>
+                                                <option value="MA">MA</option>
+                                                <option value="MT">MT</option>
+                                                <option value="MS">MS</option>
+                                                <option value="MG">MG</option>
+                                                <option value="PA">PA</option>
+                                                <option value="PB">PB</option>
+                                                <option value="PR">PR</option>
+                                                <option value="PE">PE</option>
+                                                <option value="PI">PI</option>
+                                                <option value="RJ">RJ</option>
+                                                <option value="RN">RN</option>
+                                                <option value="RS">RS</option>
+                                                <option value="RO">RO</option>
+                                                <option value="RR">RR</option>
+                                                <option value="SC">SC</option>
+                                                <option value="SP">SP</option>
+                                                <option value="SE">SE</option>
+                                                <option value="TO">TO</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mt-2">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="telefone_comercial" class="form-label">Telefone Comercial</label>
+                                            <input type="tel" class="form-control" id="telefone_comercial" name="telefone_comercial" required data-msg-required="Por favor, informe o telefone comercial">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="telefone_alternativo" class="form-label">Telefone Alternativo</label>
+                                            <input type="tel" class="form-control" id="telefone_alternativo" name="telefone_alternativo">
+                                            <div class="form-text">Opcional - para contato em caso de emergência</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Step 3: Usuário -->
+                            <div class="step-content" dmx-show="form_step.value == 3">
+                                <h4 class="mb-4">Dados do Usuário</h4>
+
+                                <div class="form-group mb-3">
+                                    <label for="nome" class="form-label">Nome Completo</label>
+                                    <input type="text" class="form-control" id="nome" name="nome" required data-msg-required="Por favor, informe seu nome completo">
+                                </div>
+
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="email" class="form-label">E-mail</label>
+                                            <input type="email" class="form-control" id="email" name="email" required data-msg-required="Por favor, informe seu e-mail" data-rule-email="true" data-msg-email="Por favor, informe um e-mail válido">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="telefone" class="form-label">Telefone</label>
+                                            <input type="tel" class="form-control" id="telefone" name="telefone" required data-msg-required="Por favor, informe seu telefone">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mt-2">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="senha" class="form-label">Senha</label>
+                                            <input type="password" class="form-control" id="senha" name="senha" required data-msg-required="Por favor, crie uma senha" minlength="8" data-msg-minlength="A senha deve ter no mínimo 8 caracteres">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="confirmar_senha" class="form-label">Confirmar Senha</label>
+                                            <input type="password" class="form-control" id="confirmar_senha" name="confirmar_senha" required data-msg-required="Por favor, confirme sua senha" data-rule-equalto="#senha" data-msg-equalto="As senhas não conferem">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mt-2">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="cargo" class="form-label">Cargo</label>
+                                            <input type="text" class="form-control" id="cargo" name="cargo" required data-msg-required="Por favor, informe seu cargo">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="departamento" class="form-label">Departamento</label>
+                                            <select class="form-select" id="departamento" name="departamento" required data-msg-required="Por favor, selecione o departamento">
+                                                <option value="">Selecione...</option>
+                                                <option value="administrativo">Administrativo</option>
+                                                <option value="financeiro">Financeiro</option>
+                                                <option value="comercial">Comercial</option>
+                                                <option value="operacional">Operacional</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-3">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="termos" name="termos" value="1" required data-msg-required="Você deve aceitar os termos para continuar">
+                                        <label class="form-check-label" for="termos">
+                                            Li e aceito os <a href="#" target="_blank">termos de uso</a> e <a href="#" target="_blank">política de privacidade</a>
+                                        </label>
                                     </div>
                                 </div>
                             </div>
 
-                        </div>
+                            <!-- Navigation buttons -->
+                            <div class="d-flex flex-column flex-sm-row justify-content-between gap-2 mt-4">
+                                <!-- Back Button -->
+                                <button type="button" class="btn btn-outline-secondary order-2 order-sm-1" dmx-on:click="form_step.value == 2 ? form_step.setValue(1) : form_step.setValue(2)" dmx-show="form_step.value > 1">
+                                    <i class="fas fa-arrow-left me-2"></i>Voltar
+                                </button>
 
-                        <!-- Step 3: Usuário -->
-                        <div class="step-content" dmx-show="form_step.value == 3">
-                            <h4 class="mb-4">Dados do Usuário</h4>
+                                <!-- Next Button -->
+                                <button type="button" class="btn btn-primary order-1 order-sm-2" dmx-on:click="form_step.value == 1 ? form_step.setValue(2) : form_step.setValue(3)" dmx-show="form_step.value < 3" dmx-bind:disabled="(form_step.value == 1 && !step1_valid.value) || (form_step.value == 2 && !step2_valid.value)">
+                                    Avançar<i class="fas fa-arrow-right ms-2"></i>
+                                </button>
 
-                            <div class="form-group mb-3">
-                                <label for="nome" class="form-label">Nome Completo</label>
-                                <input type="text" class="form-control" id="nome" name="nome" required data-msg-required="Por favor, informe seu nome completo">
+                                <!-- Submit Button -->
+                                <button type="submit" class="btn btn-success order-1 order-sm-2" dmx-show="form_step.value == 3" dmx-bind:disabled="!step3_valid.value || registration_form.state.executing">
+                                    <i class="fas fa-check me-2"></i>Finalizar Cadastro
+                                </button>
                             </div>
-
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="email" class="form-label">E-mail</label>
-                                        <input type="email" class="form-control" id="email" name="email" required data-msg-required="Por favor, informe seu e-mail" data-rule-email="true" data-msg-email="Por favor, informe um e-mail válido">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="telefone" class="form-label">Telefone</label>
-                                        <input type="tel" class="form-control" id="telefone" name="telefone" required data-msg-required="Por favor, informe seu telefone">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row g-3 mt-2">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="senha" class="form-label">Senha</label>
-                                        <input type="password" class="form-control" id="senha" name="senha" required data-msg-required="Por favor, crie uma senha" minlength="8" data-msg-minlength="A senha deve ter no mínimo 8 caracteres">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="confirmar_senha" class="form-label">Confirmar Senha</label>
-                                        <input type="password" class="form-control" id="confirmar_senha" name="confirmar_senha" required data-msg-required="Por favor, confirme sua senha" data-rule-equalto="#senha" data-msg-equalto="As senhas não conferem">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row g-3 mt-2">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="cargo" class="form-label">Cargo</label>
-                                        <input type="text" class="form-control" id="cargo" name="cargo" required data-msg-required="Por favor, informe seu cargo">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="departamento" class="form-label">Departamento</label>
-                                        <select class="form-select" id="departamento" name="departamento" required data-msg-required="Por favor, selecione o departamento">
-                                            <option value="">Selecione...</option>
-                                            <option value="administrativo">Administrativo</option>
-                                            <option value="financeiro">Financeiro</option>
-                                            <option value="comercial">Comercial</option>
-                                            <option value="operacional">Operacional</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group mt-3">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="termos" name="termos" value="1" required data-msg-required="Você deve aceitar os termos para continuar">
-                                    <label class="form-check-label" for="termos">
-                                        Li e aceito os <a href="#" target="_blank">termos de uso</a> e <a href="#" target="_blank">política de privacidade</a>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Navigation buttons -->
-                        <div class="d-flex justify-content-between mt-4">
-                            <!-- Back Button -->
-                            <button type="button" class="btn btn-outline-secondary" dmx-on:click="form_step.value == 2 ? form_step.setValue(1) : form_step.setValue(2)" dmx-show="form_step.value > 1">
-                                <i class="fas fa-arrow-left me-2"></i>Voltar
-                            </button>
-
-                            <!-- Next Button -->
-                            <button type="button" class="btn btn-primary" dmx-on:click="form_step.value == 1 ? form_step.setValue(2) : form_step.setValue(3)" dmx-show="form_step.value < 3" dmx-bind:disabled="(form_step.value == 1 && !step1_valid.value) || (form_step.value == 2 && !step2_valid.value)">
-                                Avançar<i class="fas fa-arrow-right ms-2"></i>
-                            </button>
-
-                            <!-- Submit Button -->
-                            <button type="submit" class="btn btn-success" dmx-show="form_step.value == 3" dmx-bind:disabled="!step3_valid.value || registration_form.state.executing">
-                                <i class="fas fa-check me-2"></i>Finalizar Cadastro
-                            </button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
