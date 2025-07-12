@@ -18,7 +18,7 @@
                     </div>
 
                     <!-- Form step indicator -->
-                    <div class="d-flex justify-content-between mb-4">
+                    <div class="d-flex justify-content-between mb-4" dmx-bind:data-step="form_step.value">
                         <div class="step" dmx-class:active="form_step.value >= 1" dmx-class:completed="form_step.value > 1">
                             <div class="step-number">1</div>
                             <div class="step-text">Dados da Empresa</div>
@@ -35,8 +35,11 @@
 
                     <!-- Multi-step form -->
                     <form is="dmx-serverconnect-form" id="registration_form" method="post" action="/api/register" class="needs-validation">
-                        <!-- Step value tracker -->
-                        <dmx-value id="form_step" value="1"></dmx-value>
+                        <!-- Step control variables -->
+                        <dmx-value id="form_step" dmx-bind:value="1"></dmx-value>
+                        <dmx-value id="step1_valid" dmx-bind:value="razao_social.value != '' && nome_fantasia.value != '' && cnpj.value != ''"></dmx-value>
+                        <dmx-value id="step2_valid" dmx-bind:value="cep.value != '' && logradouro.value != '' && numero.value != '' && bairro.value != '' && cidade.value != '' && telefone_comercial.value != ''"></dmx-value>
+                        <dmx-value id="step3_valid" dmx-bind:value="nome.value != '' && email.value != '' && telefone.value != '' && senha.value != '' && confirmar_senha.value != '' && cargo.value != '' && departamento.value != '' && termos.checked"></dmx-value>
 
                         <!-- Step 1: Dados da Empresa -->
                         <div class="step-content" dmx-show="form_step.value == 1">
@@ -246,28 +249,19 @@
                         </div>
 
                         <!-- Navigation buttons -->
-                        <!-- Validation functions for each step -->
-                        <dmx-value id="validate_step" dmx-bind:value="{
-                          step1: function() {
-                            return razao_social.valid && nome_fantasia.valid && cnpj.valid;
-                          },
-                          step2: function() {
-                            return cep.valid && logradouro.valid && numero.valid && bairro.valid && cidade.valid && estado.valid && telefone_comercial.valid;
-                          },
-                          step3: function() {
-                            return registration_form.validate();
-                          }
-                        }"></dmx-value>
                         <div class="d-flex justify-content-between mt-4">
-                            <button type="button" class="btn btn-outline-secondary" dmx-on:click="form_step.setValue(form_step.value - 1)" dmx-show="form_step.value > 1">
+                            <!-- Back Button -->
+                            <button type="button" class="btn btn-outline-secondary" dmx-on:click="form_step.value == 2 ? form_step.setValue(1) : form_step.setValue(2)" dmx-show="form_step.value > 1">
                                 <i class="fas fa-arrow-left me-2"></i>Voltar
                             </button>
 
-                            <button type="button" class="btn btn-primary" dmx-on:click="validate_step.value['step'+form_step.value]() && form_step.setValue(form_step.value + 1)" dmx-show="form_step.value < 3">
+                            <!-- Next Button -->
+                            <button type="button" class="btn btn-primary" dmx-on:click="form_step.value == 1 ? form_step.setValue(2) : form_step.setValue(3)" dmx-show="form_step.value < 3" dmx-bind:disabled="(form_step.value == 1 && !step1_valid.value) || (form_step.value == 2 && !step2_valid.value)">
                                 Avançar<i class="fas fa-arrow-right ms-2"></i>
                             </button>
 
-                            <button type="submit" class="btn btn-success" dmx-show="form_step.value == 3" dmx-bind:disabled="!validate_step.value.step3()">
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-success" dmx-show="form_step.value == 3" dmx-bind:disabled="!step3_valid.value || registration_form.state.executing">
                                 <i class="fas fa-check me-2"></i>Finalizar Cadastro
                             </button>
                         </div>
@@ -285,55 +279,3 @@
         <div class="mt-2">Processando seu cadastro...</div>
     </div>
 </div>
-
-<style>
-    .step {
-        text-align: center;
-        position: relative;
-        flex: 1;
-    }
-
-    .step-number {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        background-color: #e9ecef;
-        color: #6c757d;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 8px;
-        font-weight: bold;
-        transition: all 0.3s ease;
-    }
-
-    .step.active .step-number {
-        background-color: var(--bs-primary);
-        color: white;
-    }
-
-    .step.completed .step-number {
-        background-color: var(--bs-success);
-        color: white;
-    }
-
-    .step-text {
-        color: #6c757d;
-        font-size: 0.875rem;
-    }
-
-    .loading-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(255, 255, 255, 0.9);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-    }
-
-    </div>
