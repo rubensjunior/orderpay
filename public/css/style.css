@@ -27,7 +27,7 @@ button {
     font-weight: 500;
 }
 
-/* Vertical Steps Styles - Optimized for Blue Background */
+/* Vertical Steps Styles - White Theme for Blue Background */
 .vertical-steps {
     display: flex;
     flex-direction: column;
@@ -47,7 +47,7 @@ button {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(255, 255, 255, 0.1);
     color: rgba(255, 255, 255, 0.6);
     display: flex;
     align-items: center;
@@ -58,22 +58,22 @@ button {
     position: relative;
     z-index: 2;
     flex-shrink: 0;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .vertical-step.active .vertical-step-number {
-    background-color: white;
-    color: var(--bs-primary);
+    background-color: transparent;
+    color: white;
     transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-    border: 2px solid white;
+    border: 3px solid white;
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
 }
 
 .vertical-step.completed .vertical-step-number {
-    background-color: #ffc107; /* Bootstrap warning color (yellow/amber) - better contrast on blue */
-    color: #212529; /* Dark text for better readability */
-    border: 2px solid #ffc107;
-    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
+    background-color: white;
+    color: var(--bs-primary);
+    border: 3px solid white;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
 }
 
 .vertical-step.completed .vertical-step-number::before {
@@ -101,7 +101,7 @@ button {
 }
 
 .vertical-step.completed .vertical-step-title {
-    color: #ffc107; /* Matching amber color */
+    color: white;
     font-weight: 700;
 }
 
@@ -116,7 +116,7 @@ button {
 }
 
 .vertical-step.completed .vertical-step-description {
-    color: rgba(255, 193, 7, 0.9); /* Lighter amber for description */
+    color: rgba(255, 255, 255, 0.9);
 }
 
 /* Connection line between vertical steps */
@@ -133,7 +133,7 @@ button {
 }
 
 .vertical-step.completed:not(:last-child)::after {
-    background-color: #ffc107; /* Amber connecting line */
+    background-color: rgba(255, 255, 255, 0.6);
 }
 
 /* Step content transitions */
