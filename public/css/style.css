@@ -27,84 +27,113 @@ button {
     font-weight: 500;
 }
 
-/* Multi-step form styles */
-.step {
-    text-align: center;
-    position: relative;
-    flex: 1;
+/* Vertical Steps Styles - Optimized for Blue Background */
+.vertical-steps {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: 40px;
+    position: relative;
+    padding-left: 20px;
 }
 
-.step-number {
-    width: 30px;
-    height: 30px;
+.vertical-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    position: relative;
+}
+
+.vertical-step-number {
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    background-color: #e9ecef;
-    color: #6c757d;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.6);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 0 8px 0;
     font-weight: bold;
+    font-size: 18px;
     transition: all 0.3s ease;
     position: relative;
     z-index: 2;
+    flex-shrink: 0;
+    border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
-.step.active .step-number {
-    background-color: var(--bs-primary);
-    color: white;
+.vertical-step.active .vertical-step-number {
+    background-color: white;
+    color: var(--bs-primary);
     transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    border: 2px solid white;
 }
 
-.step.completed .step-number {
-    background-color: var(--bs-success);
-    color: white;
+.vertical-step.completed .vertical-step-number {
+    background-color: #ffc107; /* Bootstrap warning color (yellow/amber) - better contrast on blue */
+    color: #212529; /* Dark text for better readability */
+    border: 2px solid #ffc107;
+    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
 }
 
-.step.completed .step-number::before {
+.vertical-step.completed .vertical-step-number::before {
     content: "✓";
-    font-size: 14px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
-.step-text {
-    color: #6c757d;
-    font-size: 0.875rem;
+.vertical-step-content {
+    flex: 1;
+    text-align: left;
+}
+
+.vertical-step-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: rgba(255, 255, 255, 0.8);
     transition: color 0.3s ease;
 }
 
-.step.active .step-text {
-    color: var(--bs-primary);
-    font-weight: 500;
+.vertical-step.active .vertical-step-title {
+    color: white;
+    font-weight: 700;
 }
 
-.step.completed .step-text {
-    color: var(--bs-success);
+.vertical-step.completed .vertical-step-title {
+    color: #ffc107; /* Matching amber color */
+    font-weight: 700;
 }
 
-/* Container for step indicators with connection lines */
-.d-flex.justify-content-between.mb-4 {
-    position: relative;
-    padding: 0 15px; /* Add padding to center the line properly */
+.vertical-step-description {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.4;
 }
 
-/* Connection line between steps - connecting the centers of adjacent circles */
-.step:not(:last-child)::after {
+.vertical-step.active .vertical-step-description {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.vertical-step.completed .vertical-step-description {
+    color: rgba(255, 193, 7, 0.9); /* Lighter amber for description */
+}
+
+/* Connection line between vertical steps */
+.vertical-step:not(:last-child)::after {
     content: '';
     position: absolute;
-    top: 15px; /* Center of the 30px circles */
-    left: calc(50% + 15px); /* Start from right edge of current circle */
-    width: calc(100% - 30px); /* Extend to left edge of next circle */
-    height: 2px;
-    background-color: #e9ecef;
+    left: 24px; /* Center of the 50px circle */
+    top: 50px; /* Start from bottom of current circle */
+    width: 2px;
+    height: 40px; /* Distance to next step */
+    background-color: rgba(255, 255, 255, 0.2);
     z-index: 1;
+    transition: background-color 0.3s ease;
 }
 
-/* Active connection line for completed steps */
-.step.completed:not(:last-child)::after {
-    background-color: var(--bs-success);
+.vertical-step.completed:not(:last-child)::after {
+    background-color: #ffc107; /* Amber connecting line */
 }
 
 /* Step content transitions */
@@ -116,11 +145,6 @@ button {
 
 .step-content[dmx-show="false"] {
     opacity: 0;
-}
-
-/* Progress bar animation */
-.progress-bar {
-    transition: width 0.4s ease-in-out;
 }
 
 /* Loading overlay */
@@ -158,23 +182,53 @@ button {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    .step-text {
-        font-size: 0.75rem;
+    .vertical-steps {
+        gap: 32px;
+        padding-left: 15px;
     }
     
-    .step-number {
-        width: 25px;
-        height: 25px;
-        font-size: 0.8rem;
+    .vertical-step-number {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+    
+    .vertical-step-title {
+        font-size: 16px;
+    }
+    
+    .vertical-step-description {
+        font-size: 13px;
+    }
+    
+    .vertical-step:not(:last-child)::after {
+        left: 19px;
+        height: 32px;
     }
     
     .step-content {
         min-height: 350px;
     }
+}
+
+@media (max-width: 576px) {
+    .vertical-steps {
+        gap: 28px;
+        padding-left: 10px;
+    }
     
-    .step:not(:last-child)::after {
-        top: 12.5px; /* Adjust for smaller circles */
-        left: calc(50% + 12.5px);
-        width: calc(100% - 25px);
+    .vertical-step {
+        gap: 12px;
+    }
+    
+    .vertical-step-number {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+    
+    .vertical-step:not(:last-child)::after {
+        left: 16.5px;
+        height: 28px;
     }
 }

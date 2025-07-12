@@ -4,39 +4,43 @@
     <div class="row h-100">
         <div class="col-4 bg-primary d-flex justify-content-center align-items-center">
             <div class="text-center text-white">
-                <i class="fas fa-user-plus fa-4x mb-3"></i>
-                <h2>Cadastro de Cliente</h2>
-                <p class="lead">Complete o formulário para começar a usar o sistema.</p>
+
+                <!-- Step control variables -->
+                <dmx-value id="form_step" dmx-bind:value="1"></dmx-value>
+
+                <!-- Vertical Progress Steps -->
+                <div class="vertical-steps" dmx-bind:data-step="form_step.value">
+                    <div class="vertical-step" dmx-class:active="form_step.value >= 1" dmx-class:completed="form_step.value > 1">
+                        <div class="vertical-step-number">1</div>
+                        <div class="vertical-step-content">
+                            <div class="vertical-step-title">Dados da Empresa</div>
+                            <div class="vertical-step-description">Informações básicas da sua empresa</div>
+                        </div>
+                    </div>
+                    <div class="vertical-step" dmx-class:active="form_step.value >= 2" dmx-class:completed="form_step.value > 2">
+                        <div class="vertical-step-number">2</div>
+                        <div class="vertical-step-content">
+                            <div class="vertical-step-title">Endereço</div>
+                            <div class="vertical-step-description">Localização e contato</div>
+                        </div>
+                    </div>
+                    <div class="vertical-step" dmx-class:active="form_step.value >= 3">
+                        <div class="vertical-step-number">3</div>
+                        <div class="vertical-step-content">
+                            <div class="vertical-step-title">Usuário</div>
+                            <div class="vertical-step-description">Dados do usuário administrador</div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
         <div class="col align-self-center">
             <div class="row justify-content-center">
                 <div class="col-8">
-                    <!-- Progress bar -->
-                    <div class="progress mb-4">
-                        <div class="progress-bar" dmx-bind:style="'width: ' + ((form_step.value / 3) * 100) + '%'"></div>
-                    </div>
-
-                    <!-- Form step indicator -->
-                    <div class="d-flex justify-content-between mb-4" dmx-bind:data-step="form_step.value">
-                        <div class="step" dmx-class:active="form_step.value >= 1" dmx-class:completed="form_step.value > 1">
-                            <div class="step-number">1</div>
-                            <div class="step-text">Dados da Empresa</div>
-                        </div>
-                        <div class="step" dmx-class:active="form_step.value >= 2" dmx-class:completed="form_step.value > 2">
-                            <div class="step-number">2</div>
-                            <div class="step-text">Endereço</div>
-                        </div>
-                        <div class="step" dmx-class:active="form_step.value >= 3">
-                            <div class="step-number">3</div>
-                            <div class="step-text">Usuário</div>
-                        </div>
-                    </div>
-
                     <!-- Multi-step form -->
                     <form is="dmx-serverconnect-form" id="registration_form" method="post" action="/api/register" class="needs-validation">
-                        <!-- Step control variables -->
-                        <dmx-value id="form_step" dmx-bind:value="1"></dmx-value>
+                        <!-- Validation variables -->
                         <dmx-value id="step1_valid" dmx-bind:value="razao_social.value != '' && nome_fantasia.value != '' && cnpj.value != ''"></dmx-value>
                         <dmx-value id="step2_valid" dmx-bind:value="cep.value != '' && logradouro.value != '' && numero.value != '' && bairro.value != '' && cidade.value != '' && telefone_comercial.value != ''"></dmx-value>
                         <dmx-value id="step3_valid" dmx-bind:value="nome.value != '' && email.value != '' && telefone.value != '' && senha.value != '' && confirmar_senha.value != '' && cargo.value != '' && departamento.value != '' && termos.checked"></dmx-value>
