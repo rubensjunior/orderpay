@@ -27,6 +27,230 @@ button {
     font-weight: 500;
 }
 
+/* ===== LOGIN PAGE RESPONSIVE STYLES ===== */
+
+/* Login page container adjustments */
+.min-vh-100 {
+    min-height: 100vh;
+}
+
+/* Form styling improvements */
+.form-control-lg {
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    border-radius: 0.5rem;
+}
+
+.btn-lg {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+}
+
+/* Hero image responsive behavior */
+@media (min-width: 992px) {
+    /* Desktop and larger - side by side layout */
+    .min-vh-100 .row {
+        min-height: 100vh;
+    }
+}
+
+/* Hero image positioning - stick to bottom */
+.hero-image-column {
+    display: flex !important;
+    align-items: flex-end !important;
+    padding-bottom: 0 !important;
+}
+
+.hero-image-column .text-center {
+    width: 100%;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.hero-image-column img {
+    margin-bottom: 0 !important;
+}
+
+/* Tablet landscape (768px to 991px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .display-6 {
+        font-size: 2.5rem;
+    }
+    
+    .texto-card {
+        font-size: 0.95rem;
+    }
+    
+    /* Reduce image size on tablets */
+    .bg-primary img {
+        max-width: 70% !important;
+    }
+}
+
+/* Mobile styles (up to 767px) */
+@media (max-width: 767.98px) {
+    /* Stack layout vertically on mobile */
+    .min-vh-100 {
+        min-height: auto;
+    }
+    
+    /* Hero section adjustments for mobile */
+    .bg-primary {
+        min-height: 40vh;
+        padding: 2rem 1rem !important;
+    }
+    
+    .bg-primary img {
+        max-width: 60% !important;
+        max-height: 35vh !important;
+    }
+    
+    /* Form section adjustments */
+    .order-2 {
+        padding: 2rem 0 !important;
+    }
+    
+    /* Typography adjustments */
+    .display-6 {
+        font-size: 2.25rem;
+        margin-bottom: 1rem !important;
+    }
+    
+    .texto-card {
+        font-size: 0.9rem;
+        padding: 1rem !important;
+        margin-bottom: 2rem !important;
+    }
+    
+    /* Form control adjustments */
+    .form-control-lg {
+        padding: 0.875rem 1rem;
+        font-size: 1rem;
+    }
+    
+    .btn-lg {
+        padding: 0.875rem 1.25rem;
+        font-size: 1rem;
+        min-height: 56px;
+    }
+    
+    /* Form spacing */
+    .form-group {
+        margin-bottom: 1.5rem !important;
+    }
+    
+    /* Text alignment for mobile */
+    .text-center.text-lg-start {
+        text-align: center !important;
+    }
+    
+    /* Mobile - reset hero column positioning for better mobile layout */
+    .hero-image-column {
+        align-items: center !important;
+    }
+}
+
+/* Small mobile (up to 575px) */
+@media (max-width: 575.98px) {
+    /* Container padding adjustments */
+    .px-3 {
+        padding-left: 1.5rem !important;
+        padding-right: 1.5rem !important;
+    }
+    
+    /* Hero section for small mobile */
+    .bg-primary {
+        min-height: 35vh;
+        padding: 1.5rem 1rem !important;
+    }
+    
+    .bg-primary img {
+        max-width: 50% !important;
+        max-height: 30vh !important;
+    }
+    
+    /* Typography for small screens */
+    .display-6 {
+        font-size: 2rem;
+    }
+    
+    .texto-card {
+        font-size: 0.85rem;
+        padding: 0.875rem !important;
+    }
+    
+    /* Form adjustments for small screens */
+    .form-control-lg {
+        font-size: 16px; /* Prevents zoom on iOS */
+        padding: 0.75rem 0.875rem;
+    }
+    
+    .btn-lg {
+        font-size: 16px; /* Prevents zoom on iOS */
+        padding: 0.75rem 1rem;
+        min-height: 52px;
+    }
+    
+    .form-label {
+        font-size: 13px;
+    }
+    
+    /* Small text adjustments */
+    .small {
+        font-size: 0.8rem !important;
+    }
+}
+
+/* Landscape orientation adjustments for mobile */
+@media (max-height: 600px) and (orientation: landscape) and (max-width: 991.98px) {
+    .bg-primary {
+        min-height: 50vh;
+    }
+    
+    .bg-primary img {
+        max-height: 45vh !important;
+    }
+    
+    .py-4 {
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+    }
+}
+
+/* High-DPI screens adjustments */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .form-control,
+    .btn {
+        border-width: 0.5px;
+    }
+}
+
+/* Accessibility and performance improvements */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+/* Focus improvements for better accessibility */
+.form-control:focus,
+.btn:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    border-color: #86b7fe;
+    outline: none;
+}
+
+/* Dark mode support (for future implementation) */
+@media (prefers-color-scheme: dark) {
+    .texto-card {
+        background-color: hsla(216, 98%, 70%, 0.1);
+        border-color: hsla(216, 98%, 70%, 0.3);
+    }
+}
+
 /* Vertical Steps Styles - Clean White Theme for Blue Background */
 .vertical-steps {
     display: flex;
@@ -111,14 +335,14 @@ button {
     color: rgba(255, 255, 255, 0.9);
 }
 
-/* Connection line between vertical steps */
+/* Connection line between vertical steps - AJUSTADO PERFEITAMENTE */
 .vertical-step:not(:last-child)::after {
     content: '';
     position: absolute;
-    left: 24px; /* Center of the 50px circle */
-    top: 50px; /* Start from bottom of current circle */
+    left: 24px; /* Center of the 50px circle (50px/2 - 1px) */
+    top: 50px; /* Start from bottom edge of current circle */
     width: 2px;
-    height: 40px; /* Distance to next step */
+    height: 40px; /* Exact distance to next circle (gap value) */
     background-color: rgba(255, 255, 255, 0.2);
     z-index: 1;
     transition: background-color 0.3s ease;
@@ -172,7 +396,7 @@ button {
     box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
 }
 
-/* ===== RESPONSIVE IMPROVEMENTS ===== */
+/* ===== RESPONSIVE IMPROVEMENTS FOR OTHER COMPONENTS ===== */
 
 /* Extra large screens and above (1400px+) */
 @media (min-width: 1400px) {
@@ -196,8 +420,9 @@ button {
     }
     
     .vertical-step:not(:last-child)::after {
-        left: 29px;
-        height: 50px;
+        left: 29px; /* Center for 60px circle */
+        top: 60px; /* Bottom of 60px circle */
+        height: 50px; /* Exact gap distance */
     }
 }
 
@@ -223,8 +448,9 @@ button {
     }
     
     .vertical-step:not(:last-child)::after {
-        left: 21.5px;
-        height: 35px;
+        left: 21.5px; /* Center for 45px circle */
+        top: 45px; /* Bottom of 45px circle */
+        height: 35px; /* Exact gap distance */
     }
 }
 
@@ -250,8 +476,9 @@ button {
     }
     
     .vertical-step:not(:last-child)::after {
-        left: 19px;
-        height: 30px;
+        left: 19px; /* Center for 40px circle */
+        top: 40px; /* Bottom of 40px circle */
+        height: 30px; /* Exact gap distance */
     }
     
     .step-content {

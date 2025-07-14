@@ -1,34 +1,47 @@
 <!-- Wappler include head-page="layouts/main" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="index" appConnect="local" -->
-<div class="container-fluid vh-100">
+<div class="container-fluid min-vh-100 d-flex align-items-center py-3 py-lg-0">
 
-    <div class="row h-100 align-items-stretch">
-        <div class="col-5">
-            <div class="row h-100 align-items-center justify-content-center">
-                <div class="col-8">
-                    <h1 class="mb-4 text-primary fw-bold">OrderPay</h1>
-                    <p class="texto-card p-3 rounded-3 mb-4">Este é o seu acesso administrativo. Mantenha sua conta conta e seus dados de acesso seguros.</p>
+    <div class="row g-0 w-100 align-items-stretch min-vh-100">
+        <!-- Left Column - Login Form -->
+        <div class="col-12 col-lg-5 order-2 order-lg-1">
+            <div class="d-flex align-items-center justify-content-center h-100 py-4 py-lg-5">
+                <div class="w-100 px-3 px-sm-4 px-lg-5" style="max-width: 450px;">
+                    <div class="text-center text-lg-start mb-4 mb-lg-5">
+                        <h1 class="mb-3 mb-lg-4 text-primary fw-bold display-6 display-lg-5">OrderPay</h1>
+                        <p class="texto-card p-3 rounded-3 mb-0">Este é o seu acesso administrativo. Mantenha sua conta e seus dados de acesso seguros.</p>
+                    </div>
+
                     <form id="form1" class="mb-4">
-                        <div class="form-group mb-3"> <label for="input1" class="form-label">E-mail</label>
-                            <input type="text" class="form-control" id="input1" name="input1" aria-describedby="input1_help" placeholder="Enter some text">
+                        <div class="form-group mb-3 mb-lg-4">
+                            <label for="input1" class="form-label">E-mail</label>
+                            <input type="email" class="form-control form-control-lg" id="input1" name="input1" aria-describedby="input1_help" placeholder="Digite seu e-mail">
                         </div>
-                        <div class="form-group mb-3"> <label for="input2" class="form-label">Senha</label>
-                            <input type="text" class="form-control" id="input2" name="input1" aria-describedby="input1_help1" placeholder="Enter some text">
+                        <div class="form-group mb-3 mb-lg-4">
+                            <label for="input2" class="form-label">Senha</label>
+                            <input type="password" class="form-control form-control-lg" id="input2" name="password" aria-describedby="input1_help1" placeholder="Digite sua senha">
                         </div>
-                        <div class="form-group mb-3">
-                            <a href="" class="text-decoration-none">Recuperar minha senha.</a>
+                        <div class="form-group mb-3 mb-lg-4">
+                            <div class="text-center text-lg-start">
+                                <a href="" class="text-decoration-none small">Recuperar minha senha</a>
+                            </div>
                         </div>
-                        <div class="form-group"> <button id="btn1" class="btn btn-primary w-100">Fazer login</button>
+                        <div class="form-group mb-4">
+                            <button id="btn1" class="btn btn-primary btn-lg w-100">Fazer login</button>
                         </div>
                     </form>
-                    <div class="d-flex align-items-center flex-row w-100 justify-content-center">
-                        <p class="m-0">Não tem uma conta? <a href="/novo-cliente" class="text-decoration-none"><b>Crie uma agora!</b></a></p>
+
+                    <div class="text-center text-lg-start">
+                        <p class="mb-0 small">Não tem uma conta? <a href="/novo-cliente" class="text-decoration-none fw-bold">Crie uma agora!</a></p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col text-center h-100 bg-primary">
-            <div class="d-flex h-100 align-items-end justify-content-center"><img src="/assets/images/mockup.png" class="img-fluid" width="420"></div>
 
+        <!-- Right Column - Hero Image -->
+        <div class="col-12 col-lg-7 order-1 order-lg-2 bg-primary hero-image-column">
+            <div class="text-center py-4 py-lg-5">
+                <img src="/assets/images/mockup.png" class="img-fluid mb-0" style="max-width: 85%; max-height: 80vh;" alt="OrderPay Mockup">
+            </div>
         </div>
 
     </div>
