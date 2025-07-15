@@ -3,7 +3,7 @@
 <div class="container-fluid vh-100">
     <div class="row h-100">
         <!-- Progress Steps Sidebar -->
-        <div class="col-xl-4 col-lg-5 col-md-6 d-none d-md-flex bg-primary justify-content-center align-items-center">
+        <div class="col-xl-4 col-lg-5 col-md-6 col-12 bg-primary d-flex justify-content-center align-items-center mobile-steps-header">
             <div class="text-center text-white">
 
                 <!-- Step control variables -->
@@ -33,26 +33,12 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
 
         <!-- Main Content Area -->
-        <div class="col-xl-8 col-lg-7 col-md-6 col-12 align-self-center">
+        <div class="col-xl-8 col-lg-7 col-md-6 col-12 align-self-center mobile-content-area">
             <div class="container-fluid px-3 px-md-4 px-lg-5">
-                <!-- Mobile Progress Indicator -->
-                <div class="d-md-none mb-4">
-                    <div class="bg-primary text-white p-3 rounded">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <h6 class="mb-0">Etapa <span dmx-text="form_step.value"></span> de 3</h6>
-                            <div class="progress w-50" style="height: 8px;">
-                                <div class="progress-bar bg-white" dmx-bind:style="'width: ' + (form_step.value * 33.33) + '%'"></div>
-                            </div>
-                        </div>
-                        <div class="small mt-1" dmx-text="form_step.value == 1 ? 'Dados da Empresa' : form_step.value == 2 ? 'Endereço' : 'Dados do Usuário'"></div>
-                    </div>
-                </div>
-
                 <div class="row justify-content-center">
                     <div class="col-12 col-lg-10 col-xl-9">
                         <!-- Multi-step form -->
