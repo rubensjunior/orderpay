@@ -25,14 +25,22 @@
                             <div class="vertical-step-description">Localização e contato</div>
                         </div>
                     </div>
-                    <div class="vertical-step" dmx-class:active="form_step.value >= 3">
+                    <div class="vertical-step" dmx-class:active="form_step.value >= 3" dmx-class:completed="form_step.value > 3">
                         <div class="vertical-step-number">3</div>
                         <div class="vertical-step-content">
                             <div class="vertical-step-title">Usuário</div>
                             <div class="vertical-step-description">Dados do usuário administrador</div>
                         </div>
                     </div>
+                    <div class="vertical-step" dmx-class:active="form_step.value >= 4">
+                        <div class="vertical-step-number">4</div>
+                        <div class="vertical-step-content">
+                            <div class="vertical-step-title">Plano</div>
+                            <div class="vertical-step-description">Escolha do plano e finalização</div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
 
@@ -46,7 +54,22 @@
                             <!-- Validation variables -->
                             <dmx-value id="step1_valid" dmx-bind:value="razao_social.value != '' && nome_fantasia.value != '' && cnpj.value != ''"></dmx-value>
                             <dmx-value id="step2_valid" dmx-bind:value="cep.value != '' && logradouro.value != '' && numero.value != '' && bairro.value != '' && cidade.value != '' && telefone_comercial.value != ''"></dmx-value>
-                            <dmx-value id="step3_valid" dmx-bind:value="nome.value != '' && email.value != '' && telefone.value != '' && senha.value != '' && confirmar_senha.value != '' && cargo.value != '' && departamento.value != '' && termos.checked"></dmx-value>
+                            <dmx-value id="step3_valid" dmx-bind:value="nome.value != '' && email.value != '' && telefone.value != '' && senha.value != '' && confirmar_senha.value != '' && cargo.value != '' && departamento.value != ''"></dmx-value>
+                            <dmx-value id="step4_valid" dmx-bind:value="plano.value != '' && filiais.value != '' && termos_finais.checked"></dmx-value>
+
+                            <!-- Planos data -->
+                            <dmx-value id="planos" dmx-bind:value="[
+                                {id: 'basico', nome: 'Básico', preco: 99.90, descricao: 'Ideal para pequenas empresas'},
+                                {id: 'profissional', nome: 'Profissional', preco: 199.90, descricao: 'Para empresas em crescimento'},
+                                {id: 'empresarial', nome: 'Empresarial', preco: 399.90, descricao: 'Para grandes empresas'}
+                            ]"></dmx-value>
+
+                            <!-- Cálculos do plano -->
+                            <dmx-value id="preco_filial" dmx-bind:value="50.00"></dmx-value>
+                            <dmx-value id="plano_selecionado" dmx-bind:value="planos.value.where('id', plano.value)[0] || {}"></dmx-value>
+                            <dmx-value id="valor_plano" dmx-bind:value="plano_selecionado.value.preco || 0"></dmx-value>
+                            <dmx-value id="valor_filiais" dmx-bind:value="(filiais.value ? filiais.value.toNumber() : 0) * preco_filial.value"></dmx-value>
+                            <dmx-value id="valor_total" dmx-bind:value="valor_plano.value + valor_filiais.value"></dmx-value>
 
                             <!-- Step 1: Dados da Empresa -->
                             <div class="step-content" dmx-show="form_step.value == 1">
@@ -244,12 +267,74 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="form-group mt-3">
+                            <!-- Step 4: Plano e Finalização -->
+                            <div class="step-content" dmx-show="form_step.value == 4">
+                                <h4 class="mb-4">Escolha do Plano</h4>
+
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="plano" class="form-label">Plano Desejado</label>
+                                            <select class="form-select" id="plano" name="plano" required data-msg-required="Por favor, selecione um plano">
+                                                <option value="">Selecione um plano...</option>
+                                                <option value="basico">Básico - R$ 99,90/mês</option>
+                                                <option value="profissional">Profissional - R$ 199,90/mês</option>
+                                                <option value="empresarial">Empresarial - R$ 399,90/mês</option>
+                                            </select>
+                                            <div class="form-text" dmx-show="plano_selecionado.value.descricao" dmx-text="plano_selecionado.value.descricao"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="filiais" class="form-label">Quantidade de Filiais Adicionais</label>
+                                            <input type="number" class="form-control" id="filiais" name="filiais" value="0" min="0" max="50" required data-msg-required="Por favor, informe a quantidade de filiais">
+                                            <div class="form-text">R$ 50,00 por filial adicional</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Resumo do Plano -->
+                                <div class="mt-4" dmx-show="plano.value">
+                                    <div class="card bg-light">
+                                        <div class="card-header">
+                                            <h5 class="mb-0"><i class="fas fa-calculator me-2"></i>Resumo do Plano</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="d-flex justify-content-between mb-2">
+                                                        <span>Plano <span dmx-text="plano_selecionado.value.nome"></span>:</span>
+                                                        <span class="fw-bold" dmx-text="valor_plano.value.formatCurrency('R$ ', '.', ',', 2)"></span>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between mb-2" dmx-show="filiais.value && filiais.value.toNumber() > 0">
+                                                        <span><span dmx-text="filiais.value"></span> filiais adicionais:</span>
+                                                        <span class="fw-bold" dmx-text="valor_filiais.value.formatCurrency('R$ ', '.', ',', 2)"></span>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="d-flex justify-content-between">
+                                                        <span class="h5 mb-0">Total Mensal:</span>
+                                                        <span class="h5 mb-0 text-primary" dmx-text="valor_total.value.formatCurrency('R$ ', '.', ',', 2)"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 text-center">
+                                                    <div class="bg-primary text-white p-3 rounded">
+                                                        <div class="h4 mb-1" dmx-text="valor_total.value.formatCurrency('R$ ', '.', ',', 2)"></div>
+                                                        <small>por mês</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Termos de Uso -->
+                                <div class="form-group mt-4">
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="termos" name="termos" value="1" required data-msg-required="Você deve aceitar os termos para continuar">
-                                        <label class="form-check-label" for="termos">
-                                            Li e aceito os <a href="#" target="_blank">termos de uso</a> e <a href="#" target="_blank">política de privacidade</a>
+                                        <input type="checkbox" class="form-check-input" id="termos_finais" name="termos_finais" value="1" required data-msg-required="Você deve aceitar os termos para finalizar o pedido">
+                                        <label class="form-check-label" for="termos_finais">
+                                            Li e aceito os <a href="#" target="_blank">termos de uso</a>, <a href="#" target="_blank">política de privacidade</a> e confirmo que as informações fornecidas são verdadeiras
                                         </label>
                                     </div>
                                 </div>
@@ -258,18 +343,23 @@
                             <!-- Navigation buttons -->
                             <div class="d-flex flex-column flex-sm-row justify-content-between gap-2 mt-4">
                                 <!-- Back Button -->
-                                <button type="button" class="btn btn-outline-secondary order-2 order-sm-1" dmx-on:click="form_step.value == 2 ? form_step.setValue(1) : form_step.setValue(2)" dmx-show="form_step.value > 1">
+                                <button type="button" class="btn btn-outline-secondary order-2 order-sm-1" dmx-on:click="form_step.value == 2 ? form_step.setValue(1) : form_step.value == 3 ? form_step.setValue(2) : form_step.setValue(3)" dmx-show="form_step.value > 1">
                                     <i class="fas fa-arrow-left me-2"></i>Voltar
                                 </button>
 
                                 <!-- Next Button -->
-                                <button type="button" class="btn btn-primary order-1 order-sm-2" dmx-on:click="form_step.value == 1 ? form_step.setValue(2) : form_step.setValue(3)" dmx-show="form_step.value < 3" dmx-bind:disabled="(form_step.value == 1 && !step1_valid.value) || (form_step.value == 2 && !step2_valid.value)">
+                                <button type="button" class="btn btn-primary order-1 order-sm-2" dmx-on:click="form_step.value == 1 ? form_step.setValue(2) : form_step.value == 2 ? form_step.setValue(3) : form_step.setValue(4)" dmx-show="form_step.value < 4" dmx-bind:disabled="(form_step.value == 1 && !step1_valid.value) || (form_step.value == 2 && !step2_valid.value) || (form_step.value == 3 && !step3_valid.value)">
                                     Avançar<i class="fas fa-arrow-right ms-2"></i>
                                 </button>
 
                                 <!-- Submit Button -->
-                                <button type="submit" class="btn btn-success order-1 order-sm-2" dmx-show="form_step.value == 3" dmx-bind:disabled="!step3_valid.value || registration_form.state.executing">
-                                    <i class="fas fa-check me-2"></i>Finalizar Cadastro
+                                <button type="submit" class="btn btn-success order-1 order-sm-2" dmx-show="form_step.value == 4" dmx-bind:disabled="!step4_valid.value || registration_form.state.executing">
+                                    <span dmx-hide="registration_form.state.executing">
+                                        <i class="fas fa-check me-2"></i>Finalizar Pedido
+                                    </span>
+                                    <span dmx-show="registration_form.state.executing">
+                                        <span class="spinner-border spinner-border-sm me-2"></span>Processando...
+                                    </span>
                                 </button>
                             </div>
                         </form>
@@ -284,6 +374,6 @@
         <div class="spinner-grow text-primary" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
-        <div class="mt-2">Processando seu cadastro...</div>
+        <div class="mt-2">Processando seu pedido...</div>
     </div>
 </div>

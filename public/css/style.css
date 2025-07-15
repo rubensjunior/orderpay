@@ -625,6 +625,27 @@ button {
     }
 }
 
+/* ===== 4-STEP LAYOUT ADJUSTMENTS ===== */
+
+/* Adjust mobile progress indicator for 4 steps */
+@media (max-width: 767.98px) {
+    .mobile-steps-header .vertical-step {
+        min-width: 70px; /* Smaller width for 4 steps */
+    }
+    
+    .mobile-steps-header .vertical-steps {
+        gap: 15px; /* Reduce gap for 4 steps */
+    }
+    
+    .mobile-steps-header .vertical-step-title {
+        font-size: 11px; /* Slightly smaller for 4 steps */
+    }
+    
+    .mobile-steps-header .vertical-step-description {
+        font-size: 9px; /* Slightly smaller for 4 steps */
+    }
+}
+
 /* ===== MOBILE STEPS LAYOUT FIXES ===== */
 
 /* Mobile: Stack steps header above content */
@@ -643,7 +664,7 @@ button {
     
     /* Adjust vertical steps for mobile header */
     .mobile-steps-header .vertical-steps {
-        gap: 20px;
+        gap: 15px; /* Adjusted for 4 steps */
         padding-left: 10px;
         flex-direction: row;
         justify-content: center;
@@ -658,31 +679,31 @@ button {
         flex-direction: column;
         align-items: center;
         gap: 8px;
-        min-width: 80px;
+        min-width: 70px; /* Adjusted for 4 steps */
         flex-shrink: 0;
     }
     
     .mobile-steps-header .vertical-step-number {
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
+        width: 35px; /* Smaller for 4 steps */
+        height: 35px; /* Smaller for 4 steps */
+        font-size: 14px; /* Smaller for 4 steps */
         margin-bottom: 0;
     }
     
     .mobile-steps-header .vertical-step-content {
         text-align: center;
-        min-width: 80px;
+        min-width: 70px; /* Adjusted for 4 steps */
     }
     
     .mobile-steps-header .vertical-step-title {
-        font-size: 12px;
+        font-size: 11px; /* Smaller for 4 steps */
         font-weight: 600;
         margin-bottom: 3px;
         line-height: 1.2;
     }
     
     .mobile-steps-header .vertical-step-description {
-        font-size: 10px;
+        font-size: 9px; /* Smaller for 4 steps */
         line-height: 1.3;
     }
     
@@ -690,10 +711,10 @@ button {
     .mobile-steps-header .vertical-step:not(:last-child)::after {
         content: '';
         position: absolute;
-        left: calc(100% + 10px);
-        top: 20px;
-        width: 4px;
-        height: 4px;
+        left: calc(100% + 7px); /* Adjusted for smaller gap */
+        top: 17px; /* Adjusted for smaller circles */
+        width: 3px; /* Smaller dots */
+        height: 3px; /* Smaller dots */
         background-color: rgba(255, 255, 255, 0.4);
         border-radius: 50%;
         z-index: 1;
@@ -718,7 +739,7 @@ button {
     /* Tablet keeps mobile-like horizontal layout but larger */
     .mobile-steps-header .vertical-steps {
         flex-direction: row !important;
-        gap: 25px;
+        gap: 20px; /* Adjusted for 4 steps */
         padding-left: 0 !important;
         justify-content: center;
         align-items: center;
@@ -729,21 +750,21 @@ button {
         flex-direction: column;
         align-items: center;
         gap: 10px;
-        min-width: 100px;
+        min-width: 85px; /* Adjusted for 4 steps */
     }
     
     .mobile-steps-header .vertical-step-number {
-        width: 45px;
-        height: 45px;
-        font-size: 17px;
+        width: 40px; /* Slightly smaller for 4 steps */
+        height: 40px; /* Slightly smaller for 4 steps */
+        font-size: 16px;
     }
     
     .mobile-steps-header .vertical-step-title {
-        font-size: 14px;
+        font-size: 13px; /* Slightly smaller for 4 steps */
     }
     
     .mobile-steps-header .vertical-step-description {
-        font-size: 11px;
+        font-size: 10px; /* Slightly smaller for 4 steps */
     }
 }
 
@@ -761,7 +782,7 @@ button {
     /* FORCE RESET: Return to original vertical layout - Override ALL mobile/tablet rules */
     .mobile-steps-header .vertical-steps {
         flex-direction: column !important;
-        gap: 40px !important;
+        gap: 35px !important; /* Slightly smaller gap for 4 steps */
         padding-left: 20px !important;
         text-align: left !important;
         max-width: unset !important;
@@ -803,14 +824,14 @@ button {
         line-height: 1.4 !important;
     }
     
-    /* Restore EXACT original connecting lines for desktop */
+    /* Restore EXACT original connecting lines for desktop - adjusted for 4 steps */
     .mobile-steps-header .vertical-step:not(:last-child)::after {
         content: '' !important;
         position: absolute !important;
         left: 24px !important; /* Exact center of 50px circle */
         top: 50px !important; /* Bottom of 50px circle */
         width: 2px !important;
-        height: 40px !important; /* Exact gap distance */
+        height: 35px !important; /* Slightly smaller gap for 4 steps */
         background-color: rgba(255, 255, 255, 0.2) !important;
         border-radius: 0 !important;
         z-index: 1 !important;
@@ -824,7 +845,7 @@ button {
 /* Large desktop specific adjustments - Override for larger screens */
 @media (min-width: 1200px) {
     .mobile-steps-header .vertical-steps {
-        gap: 40px !important;
+        gap: 35px !important; /* Maintain smaller gap for 4 steps */
         padding-left: 20px !important;
     }
 }
@@ -832,7 +853,7 @@ button {
 /* Extra large desktop adjustments */
 @media (min-width: 1400px) {
     .mobile-steps-header .vertical-steps {
-        gap: 50px !important;
+        gap: 40px !important; /* Slightly larger gap for XL screens */
         padding-left: 25px !important;
     }
     
@@ -853,6 +874,6 @@ button {
     .mobile-steps-header .vertical-step:not(:last-child)::after {
         left: 29px !important; /* Center for 60px circle */
         top: 60px !important; /* Bottom of 60px circle */
-        height: 50px !important; /* Exact gap distance */
+        height: 40px !important; /* Exact gap distance for XL */
     }
 }
